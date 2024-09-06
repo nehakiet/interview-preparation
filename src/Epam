@@ -1,0 +1,58 @@
+package common.companies;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Epam {
+    public static void main(String[] args) {
+        String str = "I am here here for the interview";
+        highest4thStr(str);
+
+        int[] numbers = {1, 8, 2123, 4156, 21, 36};
+        List<Integer> result = new ArrayList<>();
+        for (int n : numbers) {
+            int absNum = Math.abs(n);
+            if (absNum >= 10) {
+                int secondDigit = getSecondDigit(absNum);
+                if (secondDigit == 1) {
+                    result.add(n);
+                }
+            }
+        }
+        System.out.println("Numbers with second digit as '1': " + result);
+    }
+
+    private static void highest4thStr(String str) {
+        String[] str1 = str.split(" ");
+        List<String> descList = Arrays.stream(str1)
+                .sorted(Comparator.comparingInt(String::length).reversed())
+                .collect(Collectors.toList());
+
+        String result = "";
+        Set<Integer> hs = new HashSet<>();
+        int rank = 0;
+        for (String word : descList) {
+            if (hs.add(word.length())) {
+                rank++;
+            }
+            if (rank == 4) {
+                result = word;
+                break;
+            }
+        }
+
+        if (!result.isEmpty()) {
+            System.out.println(result);
+        } else {
+            System.out.println("No 4th highest string found.");
+        }
+    }
+
+    private static int getSecondDigit(int num) {
+        while (num <= 100) {
+            num = num / 10;
+        }
+        return (num / 10) % 10;
+    }
+
+}
