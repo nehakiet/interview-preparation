@@ -1,0 +1,40 @@
+package common.companies;/*
+FIND ALL MISSING POSITIVE NUMBERS IN THE ARRAY IN BTW MIN AND MAX NUMBER
+Input: nums = [3,6,-1,1]
+Output: 2,4,5
+Test Case
+Numbers May not be in sequence. numbers may be like [34,67,89,23,67].
+All the numbers are present then need to print the next number from the seq of array.
+ */
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Mits {
+    public static void main(String[] args) {
+        int[] nums = {3, 6, -1, 1, 2, 4, 5};
+        Arrays.sort(nums);
+        List<Integer> arr = new ArrayList<>();
+        System.out.println(findMissingNum(nums, arr));
+
+    }
+
+    private static List<Integer> findMissingNum(int[] nums, List<Integer> arr) {
+        int min = nums[0];
+        int n = nums.length - 1;
+        int max = nums[n];
+        for (int i = min; i <= max; i++) {
+            int a = Arrays.binarySearch(nums, i);
+            if (a < 0 && i != 0) {
+                arr.add(i);
+            }
+        }
+        if (arr.isEmpty()) {
+            arr.add(max + 1);
+
+        }
+        return arr;
+    }
+}
+
