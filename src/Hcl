@@ -1,0 +1,75 @@
+package common.companies;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Hcl {
+    public static void main(String[] args) {
+        System.out.println(empFilter());
+       // flatMap();
+
+        String s = "ASFFDHGKL";
+        StrinOp(s);
+        int[] arr = {0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0};
+        sortZerosAndOnes(arr);
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+
+    }
+
+    private static int[] sortZerosAndOnes(int[] arr) {
+
+        int start = 0;
+        int end = arr.length - 1;
+        for (int i = 0; i <= end; i++) {
+            while (arr[start] == 0 && start <= end) {
+                start++;
+            }
+            while (arr[end] == 1 && start <= end) {
+                end--;
+
+            }
+            if (start <= end) {
+                int temp = arr[start];
+                arr[start] = arr[end];
+                arr[end] = temp;
+
+            }
+
+
+        }
+        return arr;
+    }
+
+    private static void StrinOp(String s) {
+        String first2 = s.substring(0, 2);
+        String last2 = s.substring(s.length() - 2);
+        int middleLength = s.length() - 4;
+        StringBuilder middle = new StringBuilder("");
+        for (int i = 0; i < middleLength; i++) {
+            middle.append("#");
+
+        }
+        String result = first2 + middle + last2;
+        System.out.println(result);
+    }
+
+    private static List<Integer> empFilter() {
+        List<Emp> emplist = new ArrayList<>();
+        emplist.add(new Emp("Neha", 1, 50000));
+        emplist.add(new Emp("Ram", 2, 70000));
+        emplist.add(new Emp("Shyam", 3, 90000));
+        return emplist.stream().filter(e -> e.getSalary() > 50000).mapToInt(Emp::getEmpId).boxed().collect(Collectors.toList());
+
+    }
+
+    private static void flatMap() {
+        List<List<Integer>> listOfLists = Arrays.asList(Arrays.asList(1, 2, 3), Arrays.asList(4, 5),
+                Arrays.asList(6, 7, 8, 9));
+        listOfLists.stream().flatMap(List::stream).collect(Collectors.toList()).forEach(System.out::print);
+
+    }
+}
