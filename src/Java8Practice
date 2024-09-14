@@ -1,0 +1,27 @@
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Java8Practice {
+    public static void main(String[] args) {
+        String str = "Hello world";
+        String output = new StringBuilder(str).reverse().chars().mapToObj(c -> String.valueOf((char)c)).
+        collect(Collectors.joining());
+        System.out.println(output);
+
+        int[]nums = {1,2,3,4,5};
+        int n = nums.length;
+        IntStream.range(0,n/2).forEach(x->{
+        int temp = nums[x];
+        nums[x] = nums[n-x-1];
+         nums[n-x-1] = temp;
+        });
+        for(int i = 0;i<n;i++){
+            System.out.println(nums[i]);
+        }
+        int[]arr1 = {1,2,3,4,5,6,7};
+        int[]arr2 = {5,6,7,8,9,10};
+
+     Arrays.stream(arr1).filter(number->Arrays.stream(arr2).anyMatch(num2->num2==number)).boxed().collect(Collectors.toList()).forEach(System.out::println);
+    }
+}
