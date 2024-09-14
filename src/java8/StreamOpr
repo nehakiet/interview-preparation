@@ -1,0 +1,57 @@
+package common.companies.java8;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class StreamOpr {
+    public static void main(String[] args) {
+
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<String> words = Arrays.asList("apple", "banana", "cherry");
+
+        IntSummaryStatistics stats = numbers.stream().collect(Collectors.summarizingInt(Integer::intValue));
+        System.out.println(stats.getMin() + "," + stats.getAverage() + "," + stats.getSum() + "," + stats.getCount() + "," + stats.getMax());
+
+        // use of PartitioningBy
+
+        Map<Boolean, List<Integer>> partitions = numbers.stream().collect(Collectors.partitioningBy(n -> n % 2 == 0));
+        for (Map.Entry<Boolean, List<Integer>> map : partitions.entrySet()) {
+            System.out.println(map.getKey() + "-" + map.getValue());
+        }
+
+        //use of Mapping
+
+        List<Integer> list = words.stream().collect(Collectors.mapping(String::length, Collectors.toList()));
+        System.out.println(list);
+
+        //use of joining, prefix and postfix
+        String result = words.stream().collect(Collectors.joining(",", "[", "]"));
+        System.out.println(result);
+
+        //groupingBy with downstream
+
+        Map<Integer, Long> map = words.stream().collect(Collectors.groupingBy(String::length, Collectors.counting()));
+        System.out.println(map);
+
+        //filtering
+
+        List<Integer>numList = numbers.stream().collect(Collectors.filtering(n->n%2==0,Collectors.toList()));
+        System.out.println(numList);
+
+        //collectingAndThen
+
+        List<String> listWords = Arrays.asList("apple", "banana", "banana","cherry");
+       Integer size = listWords.stream().collect(Collectors.collectingAndThen(Collectors.toSet(), Set::size));
+        System.out.println(size);
+
+        //Mapping with downstream collector
+
+        //Reducing
+       int i = numbers.stream().collect(Collectors.reducing(0,Integer::sum));
+        System.out.println(i);
+
+        //flatMapping
+
+
+    }
+}
