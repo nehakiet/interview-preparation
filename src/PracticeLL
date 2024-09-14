@@ -1,0 +1,104 @@
+package common.companies.linkedList;//in linkedlist 3 things are required head (which will be in outer class), data & next(for these we will create static inner class).
+
+public class PracticeLL {
+    LLNode head;
+
+    static class LLNode{
+        int data;
+        LLNode next;
+
+        public LLNode(int data) {
+            this.data = data;
+            this.next = null;
+        }
+
+    }
+    private void printNode(){
+        LLNode current = head;
+        while(current != null) {
+            System.out.print(current.data+"->");
+            current = current.next;
+        }
+        System.out.println("");
+    }
+
+    private LLNode reverseLL(LLNode head) {
+        LLNode prev = head.next;
+        LLNode next = head.next.next; //stored head.next and next.next sothat it dont get lost once we will disconnect head not
+        head.next = null;
+        while (prev != null) {
+            prev.next = head;
+          head = prev;
+            prev = next;
+            if(next !=null){
+                next = next.next;
+
+            }
+        }
+        return head;
+    }
+
+    public static void main(String[] args) {
+        PracticeLL practiceLL = new PracticeLL();
+        practiceLL.head = new LLNode(1);
+        LLNode second = new LLNode(2);
+        LLNode third = new LLNode(3);
+        LLNode fourth = new LLNode(4);
+        LLNode fifth = new LLNode(5);
+        LLNode current = practiceLL.head;
+        current.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+        fifth.next = null;
+        practiceLL.head = practiceLL.reverseLL(current);
+        practiceLL.printNode();
+
+        PracticeLL practiceLL1 = new PracticeLL();
+        practiceLL1.head = new LLNode(5);
+        LLNode second1 = new LLNode(7);
+        LLNode third1 = new LLNode(8);
+        LLNode fourth1 = new LLNode(9);
+        LLNode fifth1 = new LLNode(10);
+        LLNode current1 = practiceLL1.head;
+        current1.next = second1;
+        second1.next = third1;
+        third1.next = fourth1;
+        fourth1.next = fifth1;
+        fifth1.next = null;
+       // practiceLL1.printNode();
+
+        PracticeLL l3 = new PracticeLL();
+
+      l3.head = l3.mergeLL(current,current1);
+     l3.printNode();
+     LLNode headA = practiceLL.head;
+     LLNode headB = practiceLL1.head;
+        LLNode ptrA = headA;
+        LLNode ptrB = headB;
+        while (ptrA != ptrB) {
+            ptrA = ptrA == null ? headB : ptrA.next;
+            ptrB = ptrB == null ? headA : ptrB.next;
+        }
+        System.out.println("Intersection node: " + ptrA.data);
+    }
+
+    private LLNode mergeLL(LLNode l1, LLNode l2) {
+        LLNode dummy = new LLNode(0);
+        LLNode current = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.data <= l2.data) {
+                current.next = l1;
+                l1 = l1.next;
+            } else {
+                current.next = l2;
+                l2 = l2.next;
+            }
+            current = current.next;
+        }
+        current.next = l1 != null ? l1 : l2;
+        return dummy.next;
+    }
+}
+
+
