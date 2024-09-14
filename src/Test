@@ -1,0 +1,24 @@
+package common.companies.itc;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Test {
+    public static void main(String args[]) {
+        List<Person> people = new ArrayList<>();
+        people.add(new Person("Alice", 25));
+        people.add(new Person("Charlie", 19));
+        people.add(new Person("Eve", 20));
+        people.stream().filter(e -> e.getAge() > 18).collect(Collectors.toList());
+        people.sort(Comparator.comparing(Person::getAge));
+        System.out.println(people);
+        Map<Integer, List<Person>> person = people.stream().filter(e -> e.getAge() > 18)
+                .sorted(Comparator.comparingInt(Person::getAge)).collect(Collectors.groupingBy(Person::getAge));
+
+        for (Map.Entry<Integer, List<Person>> hm : person.entrySet()){
+            System.out.println(hm.getKey() +","+hm.getValue());
+        }
+
+
+    }
+}
