@@ -1,0 +1,40 @@
+package common.companies.linkedList;
+
+public class DuplicateNode {
+    Node head;
+
+    public static class Node{
+        int data;
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public static void main(String[] args) {
+        DuplicateNode duplicateNode = new DuplicateNode();
+        duplicateNode.head = new Node(2);
+        Node second = new Node(3);
+        Node third = new Node(4);
+        Node fourth = new Node(4);
+        Node fifth = new Node(5);
+
+
+        Node head = duplicateNode.head;
+        head.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+
+        Node current = head;
+        while(current.next!=null){
+           if(current.data == current.next.data) {
+               System.out.println("duplicate node is " + current.data);
+           }
+           current = current.next;
+        }
+    }
+
+}
