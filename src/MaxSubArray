@@ -1,0 +1,19 @@
+package common.companies;
+
+public class MaxSubArray {
+    public static void main(String[] args) {
+        int[] num = {2, 4, 1, -4, 8, 9};
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        for (int i = 0; i < num.length; i++) {
+            currSum = num[i] + currSum;
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+            if (currSum < 0) {
+                currSum = 0;
+            }
+        }
+        System.out.println(maxSum);
+    }
+}
