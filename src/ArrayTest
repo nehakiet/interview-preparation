@@ -1,0 +1,35 @@
+package common.companies.itc;
+
+import java.util.Arrays;
+
+// Given an unsorted array of integers, find the length of the longest increasing subsequence and also print the subsequence also.
+// Example: nums: [10, 9, 2, 5, 3, 7, 101, 18]; output: "Length:4&LIS:[2, 3, 7, 101]" (Mandatory).
+// Should not use any predefined methods for calculations.
+public class ArrayTest {
+    public static void main(String[] args) {
+      int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
+        System.out.println(subseqArray(nums));
+    }
+
+    private static int subseqArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int[] finalNum = new int[n];
+
+        Arrays.fill(finalNum, 1);
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    finalNum[i] = Math.max(finalNum[i], finalNum[j] + 1);
+                }
+            }
+        }
+        int maxLength = 0;
+        for (int i=0;i<n;i++){
+            maxLength = Math.max(maxLength,finalNum[i]);
+        }
+        return maxLength;
+    }
+}
