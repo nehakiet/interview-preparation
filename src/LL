@@ -1,0 +1,46 @@
+package common.companies.itc;
+
+public class LL {
+Node head;
+
+static class Node{
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+    public static void main(String[] args) {
+
+    LL lnode = new LL();
+    lnode.head = new Node(1);
+    Node first = new Node(2);
+    Node second = new Node (3);
+
+    Node headA =  lnode.head;
+    headA.next = first;
+    first.next = second;
+
+        LL lnode1 = new LL();
+        lnode1.head = new Node(3);
+        Node third = new Node(4);
+        Node forth = new Node (5);
+
+        Node headB =  lnode1.head;
+        headB.next = third;
+        first.next = forth;
+       forth.next=first;
+        Node ptrA = headA;
+        Node ptrB = headB;
+
+        while (ptrA != ptrB) {
+            ptrA = ptrA == null ? headB : ptrA.next;
+            ptrB = ptrB == null ? headA : ptrB.next;
+        }
+
+        System.out.println("intersection data is" +ptrA.data);
+    }
+}
