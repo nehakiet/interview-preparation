@@ -1,0 +1,54 @@
+package common.companies.linkedList;
+
+import java.util.LinkedList;
+import java.util.Collections;
+
+public class LinkedListExample {
+    public static void main(String[] args) {
+
+        LinkedList<Integer> list1 = new LinkedList<>();
+        Collections.addAll(list1, 1, 3, 5, 7, 9);
+
+        LinkedList<Integer> list2 = new LinkedList<>();
+        Collections.addAll(list2, 2, 4, 6, 8, 10);
+        System.out.println("List 1: " + list1);
+        System.out.println("List 2: " + list2);
+
+
+        LinkedList<Integer> mergedList = mergeSortedLists(list1, list2);
+
+
+        System.out.println("Merged List: " + mergedList);
+    }
+
+    // Method to merge two sorted linked lists
+    public static LinkedList<Integer> mergeSortedLists(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+        LinkedList<Integer> mergedList = new LinkedList<>();
+        int i = 0, j = 0;
+
+
+        while (i < list1.size() && j < list2.size()) {
+            if (list1.get(i) <= list2.get(j)) {
+                mergedList.add(list1.get(i));
+                i++;
+            } else {
+                mergedList.add(list2.get(j));
+                j++;
+            }
+        }
+
+        // Add remaining elements from list1
+        while (i < list1.size()) {
+            mergedList.add(list1.get(i));
+            i++;
+        }
+
+        // Add remaining elements from list2
+        while (j < list2.size()) {
+            mergedList.add(list2.get(j));
+            j++;
+        }
+
+        return mergedList;
+    }
+}
